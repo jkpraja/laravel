@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Prepare .env') {
             steps {
-                sh 'echo -e "\nGIT_COMMIT_SHORT=$(echo $GIT_COMMIT_SHORT)" >> .env'
+                sh 'echo "\nGIT_COMMIT_SHORT=$(echo $GIT_COMMIT_SHORT)" >> .env'
             }
         }
 
