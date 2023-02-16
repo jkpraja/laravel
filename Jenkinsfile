@@ -30,9 +30,9 @@ pipeline {
                 //deploy app
                 //sh 'php artisan serve'
                 dir('blogx') {
-                    sh 'docker build . -t laravel-app:$GIT_COMMIT_SHORT'
-                    sh 'docker tag laravel-app:$GIT_COMMIT_SHORT jkpraja/laravel-app:$GIT_COMMIT_SHORT'
-                    sh 'docker push jkpraja/laravel-app:$GIT_COMMIT_SHORT'
+                    sh 'docker build . -t laravel-app:latest'
+                    sh 'docker tag laravel-app:latest jkpraja/laravel-app:latest'
+                    sh 'docker push jkpraja/laravel-app:latest'
                 }
             }
         }
