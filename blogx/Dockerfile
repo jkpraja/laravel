@@ -11,7 +11,7 @@ RUN apt -y install php7.4 php7.4-dom php7.4-mbstring php7.4-xml php7.4-mysql php
 
 COPY .env.example .env
 
-RUN sh ./ubahenv.sh && sh ./installcomposer.sh
+#RUN sh ./ubahenv.sh && sh ./installcomposer.sh
 
 #RUN php artisan key:generate
 
