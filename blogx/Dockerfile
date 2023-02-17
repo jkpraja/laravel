@@ -20,7 +20,7 @@ RUN apt update && apt -y full-upgrade \
     cron \
     supervisor \
     tmux \
-    unzip iputils
+    unzip
 
 #Clear cache
 RUN apt clean && rm -rf /var/lib/apt/lists/*
@@ -32,9 +32,9 @@ COPY .env.example .env
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN pwd
-#COPY blogx ./blogx
+COPY . ./blogx
 
-CMD ["/bin/bash", "-c", ".ubahenv.sh"]
+CMD ["/bin/bash", "-c", "./ubahenv.sh"]
 
 #RUN composer install
 
