@@ -2,7 +2,7 @@ FROM php:7.4-fpm
 
 WORKDIR /var/www/
 
-COPY composer.lock composer.json .
+#COPY composer.lock composer.json .
 
 #install dependencies
 RUN apt update && apt -y full-upgrade \
@@ -27,12 +27,13 @@ RUN apt clean && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
 
+COPY . ./blogx
+
+WORKDIR ./blogx
+
 COPY .env.example .env
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-RUN pwd
-COPY . ./blogx
 
 CMD ["/bin/bash", "-c", "./ubahenv.sh"]
 
