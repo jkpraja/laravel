@@ -30,7 +30,7 @@ pipeline {
                 //deploy app
                 //sh 'php artisan serve'
                 dir('blogx') {
-                    sh 'docker build . -t laravel-app:latest'
+                    sh 'docker build -f app.Dockerfile . -t laravel-app:latest'
                     sh 'docker tag laravel-app:latest jkpraja/laravel-app:latest'
                     sh 'docker push jkpraja/laravel-app:latest'
                 }
@@ -40,7 +40,7 @@ pipeline {
         stage('Build Webserver') {
             steps {
                 dir('web-server') {
-                    sh 'docker build . -t web-server:latest'
+                    sh 'docker build -f web-server.Dockerfile . -t web-server:latest'
                     sh 'docker tag web-server:latest jkpraja/web-server:latest'
                     sh 'docker push jkpraja/web-server:latest'
                 }
