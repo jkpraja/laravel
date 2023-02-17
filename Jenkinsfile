@@ -40,9 +40,9 @@ pipeline {
         stage('Build Webserver') {
             steps {
                 dir('blogx') {
-                    sh 'docker build -f web-server.Dockerfile . -t web-server:latest'
-                    sh 'docker tag web-server:latest jkpraja/web-server:latest'
-                    sh 'docker push jkpraja/web-server:latest'
+                    sh 'docker build -f web-server.Dockerfile . -t laravel-server:latest'
+                    sh 'docker tag laravel-server:latest jkpraja/laravel-server:latest'
+                    sh 'docker push jkpraja/laravel-server:latest'
                 }
             }
         }
