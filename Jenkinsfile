@@ -39,7 +39,7 @@ pipeline {
 
         stage('Build Webserver') {
             steps {
-                dir('web-server') {
+                dir('blogx') {
                     sh 'docker build -f web-server.Dockerfile . -t web-server:latest'
                     sh 'docker tag web-server:latest jkpraja/web-server:latest'
                     sh 'docker push jkpraja/web-server:latest'
