@@ -31,7 +31,8 @@ COPY .env.example .env
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-COPY blogx ./blogx
+RUN pwd
+#COPY blogx ./blogx
 
 CMD ["/bin/bash", "-c", ".ubahenv.sh"]
 
