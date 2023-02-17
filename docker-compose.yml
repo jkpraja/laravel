@@ -47,9 +47,10 @@ services:
     #    networks:
     #        - sail
 networks:
-    blogx:
+    #blogx:
     sail:
     #    driver: bridge
 volumes:
+    blogx:
     sailmysql:
 #        driver: local
