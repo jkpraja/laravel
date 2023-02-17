@@ -7,7 +7,7 @@ WORKDIR /var/www/
 #install dependencies
 RUN apt update && apt -y full-upgrade \
     && apt -y install lsb-release apt-transport-https ca-certificates \
-    #build-essential \
+    build-essential \
     #libpng-dev \
     #libjpeg62-turbo-dev \
     #libfreetype6-dev \
