@@ -1,15 +1,47 @@
-FROM debian:stable-slim
+FROM php:7.4-fpm
 
-WORKDIR ./blogx
+WORKDIR /var/www/
 
-COPY . .
+COPY composer.lock composer.json .
 
-RUN apt update && apt -y full-upgrade && apt -y install lsb-release apt-transport-https ca-certificates && apt install -y wget && apt install -y git && apt install -y unzip
-#RUN composer install
+#install dependencies
+RUN apt update && apt -y full-upgrade \
+    && apt -y install lsb-release apt-transport-https ca-certificates \
+    build-essential \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    locales \
+    zip \
+    libonig-dev \
+    libzip-dev \
+    curl \
+    git \
+    cron \
+    supervisor \
+    tmux \
+    unzip iputils
 
-RUN apt -y install php7.4 php7.4-dom php7.4-mbstring php7.4-xml php-mysql php7.4-curl && apt -y install iputils-ping
+#Clear cache
+RUN apt clean && rm -rf /var/lib/apt/lists/*
+
+RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
 
 COPY .env.example .env
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+COPY ./blogx /var/www/
+
+CMD ["/bin/bash", "-c", ".ubahenv.sh"]
+
+#RUN composer install
+
+CMD ["php-fpm"]
+
+#COPY ../supervisor/ /etc/
+
+#CMD ["/usr/bin/supervisor", "-c", "/etc/supervisord.conf"]
 
 #RUN sh ./ubahenv.sh && sh ./installcomposer.sh
 

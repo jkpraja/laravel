@@ -37,6 +37,16 @@ pipeline {
             }
         }
 
+        stage('Build Webserver') {
+            steps {
+                dir('web-server') {
+                    sh 'docker build . -t web-server:latest'
+                    sh 'docker tag web-server:latest jkpraja/web-server:latest'
+                    sh 'docker push jkpraja/web-server:latest'
+                }
+            }
+        }
+
         stage('Deploy') {
             steps {
                 sshPublisher(publishers: [sshPublisherDesc(configName: 'remote-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''docker compose up -d''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '.env,docker-compose.yml')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
