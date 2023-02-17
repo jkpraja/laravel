@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/sh
 
 sed -i -e '/DB_DATABASE/s/laravel/blogx/g' .env
 sed -i -e '/DB_USERNAME/s/root/blogx/g' .env

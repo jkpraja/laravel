@@ -35,9 +35,11 @@ COPY .env.example .env
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-CMD ["/bin/bash", "-c", "./ubahenv.sh"]
+RUN chmod +x ./ubahenv.sh
 
-#RUN composer install
+RUN sh ./ubahenv.sh
+
+RUN composer install
 
 CMD ["php-fpm"]
 
