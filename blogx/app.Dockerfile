@@ -46,7 +46,7 @@ CMD ["php","artisan","key:generate"]
 
 CMD ["php","artisan","migrate"]
 
-CMD ["php", "artisan", "serve", "--host 0.0.0.0"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0"]
 
 #CMD ["php-fpm"]
 
