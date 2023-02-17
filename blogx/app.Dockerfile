@@ -7,7 +7,7 @@ WORKDIR /var/www/
 #install dependencies
 RUN apt update && apt -y full-upgrade \
     && apt -y install lsb-release apt-transport-https ca-certificates \
-    build-essential \
+    #build-essential \
     #libpng-dev \
     #libjpeg62-turbo-dev \
     #libfreetype6-dev \
@@ -25,7 +25,8 @@ RUN apt update && apt -y full-upgrade \
 #Clear cache
 RUN apt clean && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
+RUN docker-php-ext-install pdo_mysql mbstring 
+#zip exif pcntl
 
 COPY . ./blogx
 
