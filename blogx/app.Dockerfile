@@ -8,18 +8,18 @@ WORKDIR /var/www/
 RUN apt update && apt -y full-upgrade \
     && apt -y install lsb-release apt-transport-https ca-certificates \
     build-essential \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    libonig-dev \
-    libzip-dev \
+    #libpng-dev \
+    #libjpeg62-turbo-dev \
+    #libfreetype6-dev \
+    #locales \
+    #zip \
+    #libonig-dev \
+    #libzip-dev \
     curl \
     git \
-    cron \
-    supervisor \
-    tmux \
+    #cron \
+    #supervisor \
+    #tmux \
     unzip
 
 #Clear cache
@@ -45,7 +45,7 @@ CMD ["php","artisan","key:generate"]
 
 CMD ["php","artisan","migrate"]
 
-CMD ["php", "artisan", "serve"]
+CMD ["php", "artisan", "serve", "--host 0.0.0.0"]
 
 #CMD ["php-fpm"]
 
