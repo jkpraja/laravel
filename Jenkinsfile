@@ -37,15 +37,15 @@ pipeline {
             }
         }
 
-        stage('Build Webserver') {
-            steps {
-                dir('blogx') {
-                    sh 'docker build -f web-server.Dockerfile . -t laravel-server:latest'
-                    sh 'docker tag laravel-server:latest jkpraja/laravel-server:latest'
-                    sh 'docker push jkpraja/laravel-server:latest'
-                }
-            }
-        }
+        //stage('Build Webserver') {
+        //    steps {
+        //        dir('blogx') {
+        //            sh 'docker build -f web-server.Dockerfile . -t laravel-server:latest'
+        //            sh 'docker tag laravel-server:latest jkpraja/laravel-server:latest'
+        //            sh 'docker push jkpraja/laravel-server:latest'
+        //        }
+        //    }
+        //}
 
         stage('Deploy') {
             steps {
