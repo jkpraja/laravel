@@ -34,7 +34,7 @@ services:
         networks:
             - sail
         healthcheck:
-          test: ["CMD-SHELL", "test -d '/var/lib/mysql/'"]
+          test: ["CMD-SHELL", "test -d '/var/lib/mysql/blogx'"]
           retries: 3
           timeout: 5s
     #web-server:
