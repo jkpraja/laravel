@@ -53,7 +53,7 @@ pipeline {
                 sleep 200
                 docker exec laravel-app php artisan key:generate
                 docker exec laravel-app php artisan migrate
-                docker exec laravel-app php artisan serve --host=0.0.0.0''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '.env,docker-compose.yml')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                docker exec laravel-app php artisan serve --host=0.0.0.0''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '.env,docker-compose.yml,runapp.sh')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
                 //sshPublisher(publishers: [sshPublisherDesc(configName: 'remote-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''
                 //    if [ "$( docker container inspect -f \'{{.State.Status}}\' mysql)" == "running" ]
                 //    echo "Mysql is already running"
