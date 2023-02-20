@@ -13,22 +13,7 @@ pipeline {
         }
 
         stage('Build Laravel') {
-            //environment {
-            //    DB_HOST = credentials("mysql")
-            //    DB_DATABASE = credentials("blogx")
-            //    DB_USERNAME = credentials("blogx")
-            //    DB_PASSWORD = credentials("adminadmin1")
-            //}
             steps {
-                //sh 'php --version'
-                //sh 'composer install'
-                //sh 'cp .env.example .env'
-                //sh './vendor/bin/sail up'
-                //sh 'php artisan key:generate'
-                //migrate database
-                //sh 'php artisan migrate'
-                //deploy app
-                //sh 'php artisan serve'
                 dir('blogx') {
                     sh 'docker build -f app.Dockerfile . -t laravel-app:latest'
                     sh 'docker tag laravel-app:latest jkpraja/laravel-app:latest'
@@ -36,16 +21,6 @@ pipeline {
                 }
             }
         }
-
-        //stage('Build Webserver') {
-        //    steps {
-        //        dir('blogx') {
-        //            sh 'docker build -f web-server.Dockerfile . -t laravel-server:latest'
-        //            sh 'docker tag laravel-server:latest jkpraja/laravel-server:latest'
-        //            sh 'docker push jkpraja/laravel-server:latest'
-        //        }
-        //    }
-        //}
 
         stage('Deploy') {
             steps {
