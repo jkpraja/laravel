@@ -1,6 +1,6 @@
 #! /bin/sh
 
-if [ $( docker ps -a -f name=mysql-db | wc -1 ) -eq 2 ]; then
+if [ ! "$( docker ps -a -f name=mysql-db)" ]; then
     echo "database is already running"
     docker compose up -d laravel-app
 else
