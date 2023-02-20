@@ -55,19 +55,7 @@ pipeline {
                 //docker exec laravel-app php artisan migrate
                 //docker exec laravel-app php artisan serve --host=0.0.0.0''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '.env,compose.yaml,runapp.sh')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
                 sshPublisher(publishers: [sshPublisherDesc(configName: 'remote-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''
-                    if [ "$( docker container inspect -f \'{{.State.Status}}\' database)" = "running" ]
-                        echo "database is already running"
-                        docker compose up -d laravel-app
-                    else
-                        docker compose up -d
-                    fi
-                    docker compose exec laravel-app php artisan key:generate
-                    while [ "test -d /var/lib/mysql/blogx" -eq 1]
-                        do
-                            echo "database is not ready"
-                        done
-                    docker exec laravel-app php artisan migrate
-                    docker exec laravel-app php artisan serve --host=0.0.0.0''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '.env,compose.yaml,runapp.sh')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                    sh runapp.sh''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '.env,compose.yaml,runapp.sh')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
         }
     }
