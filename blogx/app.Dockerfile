@@ -42,13 +42,13 @@ RUN sh ./ubahenv.sh
 
 RUN composer install
 
-CMD php artisan key:generate && php artisan migrate
+#CMD php artisan key:generate && php artisan migrate
 
 #RUN php artisan key:generate && php artisan migrate
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0"]
+#CMD ["php", "artisan", "serve", "--host=0.0.0.0"]
 
-#CMD ["php-fpm"]
+CMD ["php-fpm"]
 
 #COPY ../supervisor/ /etc/
 
