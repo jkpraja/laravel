@@ -50,22 +50,22 @@ pipeline {
         stage('Deploy') {
             steps {
                 //sshPublisher(publishers: [sshPublisherDesc(configName: 'remote-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''docker compose up -d''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '.env,docker-compose.yml')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
-                sshPublisher(publishers: [sshPublisherDesc(configName: 'remote-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''docker compose up -d laravel-app
-
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'remote-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''
+                    if [ "$( docker container inspect -f \'{{.State.Status}}\' mysql-db)" == "running" ]
+                    echo "Mysql is already running"
+                    else
+                    docker compose up -d mysql-db
+                    fi
+                    docker compose up -d laravel-app
                     while [ "$( docker container inspect -f \'{{.State.Status}}\' laravel-app)" != "running" ]
                     do
                     echo "laravel-app is not running yet"
                     done
                     echo "laravel-app is probably running now..."
                     docker compose exec laravel-app php artisan key:generate
-                    if [ "$( docker container inspect -f \'{{.State.Status}}\' mysql-db)" == "running" ]
-                    echo "Mysql is already running"
-                    else
-                    docker compose up -d mysql-db
-                    fi
-
-                    docker compose exec laravel-app php artisan migrate
-                    docker compose exec laravel-app php artisan serve --host=0.0.0.0''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '.env,compose.yaml')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                    
+                    docker exec laravel-app php artisan migrate
+                    docker exec laravel-app php artisan serve --host=0.0.0.0''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '.env,compose.yaml')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
         }
     }
