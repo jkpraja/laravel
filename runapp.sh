@@ -1,7 +1,8 @@
 #! /bin/sh
 
-if [ "$( docker container inspect -f \'{{.State.Status}}\' mysql-db)" = "running" ]; then
+if [ $( docker ps -a -f name=mysql-db | wc -1 ) -eq 2 ]; then
     echo "database is already running"
+    docker compose up -d laravel-app
 else
     docker compose up -d database
     docker compose up -d laravel-app
