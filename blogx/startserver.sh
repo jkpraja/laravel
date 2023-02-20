@@ -1,7 +1,6 @@
 #! /bin/sh
 
-ping -c 3 database
-if [$? -eq 0]; then
+if [ ping -c 2 database > /dev/null ]; then
     echo "database is already running"
     php artisan key:generate
     php artisan migrate
