@@ -40,5 +40,5 @@ RUN sh ./ubahenv.sh && cat .env
 
 RUN composer install
 
-#CMD ["php-fpm"]
-ENTRYPOINT ["sh", "./startserver.sh]"]
+CMD ["php-fpm"]
+#ENTRYPOINT ["sh", "./startserver.sh]"]
