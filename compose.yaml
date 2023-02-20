@@ -16,8 +16,8 @@ services:
             - 'blogx:/var/www/blogx'
         networks:
             - sail
-        depends_on:
-            - mysql
+        #depends_on:
+        #    - mysql
     mysql:
         container_name: mysql-db
         image: 'mysql:8.0'
