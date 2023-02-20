@@ -1,9 +1,9 @@
 #! /bin/sh
 
-if [ "$( docker container inspect -f \'{{.State.Status}}\' mysql)" == "running" ]; then
-    echo "Mysql is already running"
+if [ "$( docker container inspect -f \'{{.State.Status}}\' database)" == "running" ]; then
+    echo "database is already running"
 else
-    docker compose up -d mysql
+    docker compose up -d database
 fi
 docker compose up -d laravel-app
 while [ "$( docker container inspect -f \'{{.State.Status}}\' laravel-app)" != "running" ]

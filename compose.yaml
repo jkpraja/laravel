@@ -17,8 +17,8 @@ services:
         networks:
             - sail
         #depends_on:
-        #    - mysql
-    mysql:
+        #    - database
+    database:
         container_name: mysql-db
         image: 'mysql:8.0'
         ports:
@@ -37,17 +37,7 @@ services:
           test: ["CMD-SHELL", "test -d '/var/lib/mysql/blogx'"]
           retries: 5
           timeout: 10s
-    #web-server:
-    #    container_name: web_server
-    #    image: jkpraja/laravel-server:latest
-    #    ports:
-    #        - "80:80"
-    #    depends_on:
-    #        - laravel-app
-    #    networks:
-    #        - sail
 networks:
-    #blogx:
     sail:
     #    driver: bridge
 volumes:
