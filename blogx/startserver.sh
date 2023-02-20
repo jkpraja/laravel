@@ -1,6 +1,6 @@
 #! /bin/sh
 
-ping -c 5000 database
+ping -c 3 database
 if [$? -eq 0]; then
     echo "database is already running"
     php artisan key:generate

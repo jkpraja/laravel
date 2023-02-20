@@ -3,7 +3,7 @@ FROM php:7.4-fpm
 WORKDIR /var/www/
 
 #install dependencies
-RUN apt update && apt -y full-upgrade \
+RUN apt update \
     && apt -y install lsb-release apt-transport-https ca-certificates \
     #build-essential \
     #libpng-dev \
@@ -18,6 +18,7 @@ RUN apt update && apt -y full-upgrade \
     #cron \
     #supervisor \
     #tmux \
+    iputils-ping \
     unzip
 
 #Clear cache
