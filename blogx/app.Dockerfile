@@ -35,8 +35,9 @@ COPY .env.example .env
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN chmod +x ./ubahenv.sh
+RUN chmod +x ./startserver.sh
 
-RUN sh ./ubahenv.sh && cat .env
+RUN sh ./ubahenv.sh
 
 RUN composer install
 
