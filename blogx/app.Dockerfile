@@ -38,7 +38,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN chmod +x ./ubahenv.sh
 
-RUN sh ./ubahenv.sh
+RUN sh ./ubahenv.sh && cat .env
 
 RUN composer install
 
