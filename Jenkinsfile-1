@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'linux'
-    }
+    agent any
 
     environment {
         GIT_COMMIT_SHORT = sh (returnStdout: true, script: '''echo $GIT_COMMIT | head -c 7''')
@@ -17,9 +15,19 @@ pipeline {
         stage('Build Laravel') {
             steps {
                 dir('blogx') {
-                    sh 'docker build -f app.Dockerfile . -t laravel-app:latest'
-                    sh 'docker tag laravel-app:latest jkpraja/laravel-app:latest'
-                    sh 'docker push jkpraja/laravel-app:latest'
+                    sh 'docker build -f app.Dockerfile . -t laravel-prod-app:latest'
+                    sh 'docker tag laravel-prod-app:latest jkpraja/laravel-prod-app:latest'
+                    sh 'docker push jkpraja/laravel-prod-app:latest'
+                }
+            }
+        }
+
+        stage('Build Webserver') {
+            steps {
+                dir('web-server') {
+                    sh 'docker build . -t web-server:latest'
+                    sh 'docker tag web-server:latest jkpraja/web-server:latest'
+                    sh 'docker push jkpraja/web-server:latest'
                 }
             }
         }

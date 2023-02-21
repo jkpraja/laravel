@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:7.4-fpm as base
 
 WORKDIR /var/www/
 
@@ -16,7 +16,7 @@ RUN apt update \
     curl \
     git \
     #cron \
-    #supervisor \
+    supervisor \
     #tmux \
     iputils-ping \
     unzip
@@ -43,4 +43,8 @@ RUN sh ./ubahenv.sh
 RUN composer install
 
 #CMD ["php-fpm"]
-ENTRYPOINT ["sh", "./startserver.sh"]
+#ENTRYPOINT ["sh", "./startserver.sh"]
+
+COPY ../supervisor/ /etc/
+
+CMD [ "/usr/bin/supervisord", "-c", "/etc/supervisord.conf" ]
