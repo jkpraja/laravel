@@ -14,11 +14,11 @@ pipeline {
 
         stage('Build Laravel') {
             steps {
-                dir('blogx') {
+                //dir('blogx') {
                     sh 'docker build -f app.Dockerfile . -t laravel-prod-app:latest'
                     sh 'docker tag laravel-prod-app:latest jkpraja/laravel-prod-app:latest'
                     sh 'docker push jkpraja/laravel-prod-app:latest'
-                }
+                //}
             }
         }
 
@@ -34,7 +34,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sshPublisher(publishers: [sshPublisherDesc(configName: 'remote-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''sh ./runapp.sh''', execTimeout: 300000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '.env,compose.yaml,runapp.sh')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'remote-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''sh ./runappprod.sh''', execTimeout: 300000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '.env,compose.yaml,runappprod.sh')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
             }
         }
     }

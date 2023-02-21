@@ -43,4 +43,8 @@ RUN sh ./ubahenv.sh
 RUN composer install
 
 #CMD ["php-fpm"]
-ENTRYPOINT ["sh", "./startserver.sh"]
+#ENTRYPOINT ["sh", "./startserver.sh"]
+
+COPY ./supervisor/ /etc/
+
+CMD [ "/usr/bin/supervisord", "-c", "/etc/supervisord.conf" ]
