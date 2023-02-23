@@ -31,7 +31,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                //dir('web-server') {
+                dir('blogx') {
                     sh 'pwd'
                     sh 'docker build -f server.Dockerfile . -t web-server:latest'
                     sh 'docker tag web-server:latest jkpraja/web-server:latest'
