@@ -29,7 +29,7 @@ RUN docker-php-ext-install pdo_mysql mbstring
 
 COPY blogx blogx
 
-WORKDIR /var/www/blogx
+WORKDIR /var/www/blogx/
 
 COPY .env.example .env
 
