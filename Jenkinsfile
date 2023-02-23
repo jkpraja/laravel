@@ -5,6 +5,7 @@ pipeline {
 
     environment {
         GIT_COMMIT_SHORT = sh (returnStdout: true, script: '''echo $GIT_COMMIT | head -c 7''')
+        DOCKERHUB_CREDENTIALS = credentials('jkpraja-dockerhub')
     }
 
     stages {
@@ -28,6 +29,11 @@ pipeline {
             steps {
                 sshPublisher(publishers: [sshPublisherDesc(configName: 'remote-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''sh ./runapp.sh''', execTimeout: 300000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '.env,compose.yaml,runapp.sh')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
             }
+        }
+    }
+    post {
+        always {
+            sh 'docker logout'
         }
     }
 }
