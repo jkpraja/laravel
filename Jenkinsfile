@@ -8,9 +8,6 @@ pipeline {
     }
 
     stages {
-        when {
-            branch 'development'
-        }
         stage('Prepare .env') {
             steps {
                 sh 'echo "\nGIT_COMMIT_SHORT=$(echo $GIT_COMMIT_SHORT)" >> .env'
