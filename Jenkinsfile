@@ -9,7 +9,7 @@ pipeline {
 
     stages {
         when {
-            branch "development"
+            branch 'development'
         }
         stage('Prepare .env') {
             steps {
