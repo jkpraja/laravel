@@ -32,15 +32,6 @@ services:
           test: ["CMD-SHELL", "test -d '/var/lib/mysql/blogx'"]
           retries: 5
           timeout: 10s
-    web-server:
-        container_name: web-server
-        image: jkpraja/laravel-server:latest
-        ports:
-            - "80:80"
-        #depends_on:
-        #    - laravel-app
-        networks:
-            - sail
 networks:
     sail:
     #    driver: bridge

@@ -5,26 +5,40 @@ pipeline {
 
     environment {
         GIT_COMMIT_SHORT = sh (returnStdout: true, script: '''echo $GIT_COMMIT | head -c 7''')
+        BRANCH_NICK = sh {returnStdout: true, script: '''echo $BRANCH_NAME}
     }
 
     stages {
         stage('Prepare .env') {
             steps {
                 sh 'echo "\nGIT_COMMIT_SHORT=$(echo $GIT_COMMIT_SHORT)" >> .env'
+                sh 'echo "\nBRANCH_NICK=$(echo $BRANCH_NICK)" >> .env'
             }
         }
 
         stage('Build Laravel') {
             steps {
-                //dir('blogx') {
-                    sh 'docker build -f app-prod.Dockerfile . -t laravel-prod-app:latest'
-                    sh 'docker tag laravel-prod-app:latest jkpraja/laravel-prod-app:latest'
-                    sh 'docker push jkpraja/laravel-prod-app:latest'
-                //}
+                dir('blogx') {
+                    if ('master' == BRANCH_NICK)
+                    {
+                        sh 'docker build -f app-prod.Dockerfile . -t laravel-prod-app:latest'
+                        sh 'docker tag laravel-prod-app:latest jkpraja/laravel-prod-app:latest'
+                        sh 'docker push jkpraja/laravel-prod-app:latest'
+                    } else {
+                        sh 'docker build -f app.Dockerfile . -t laravel-app:latest'
+                        sh 'docker tag laravel-app:latest jkpraja/laravel-app:latest'
+                        //sh 'echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS} --password-stdin'
+                        sh 'docker push jkpraja/laravel-app:latest'
+                    }
+                    
+                }
             }
         }
 
         stage('Build Webserver') {
+            when {
+                branch 'master'
+            }
             steps {
                 dir('web-server') {
                     sh 'docker build . -t web-server:latest'
@@ -36,7 +50,12 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sshPublisher(publishers: [sshPublisherDesc(configName: 'remote-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''sh ./runappprod.sh''', execTimeout: 300000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '.env,compose.yaml,runappprod.sh')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
+                if ('master' == BRANCH_NICK) {
+                    sshPublisher(publishers: [sshPublisherDesc(configName: 'remote-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''sh ./runappprod.sh''', execTimeout: 300000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '.env,compose.yaml,runapp.sh')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
+                } else 
+                {
+                    sshPublisher(publishers: [sshPublisherDesc(configName: 'remote-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''sh ./runappprod.sh''', execTimeout: 300000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '.env,prod-compose.yaml,runappprod.sh')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
+                }
             }
         }
     }

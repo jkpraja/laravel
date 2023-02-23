@@ -27,9 +27,9 @@ RUN apt clean && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-install pdo_mysql mbstring 
 #zip exif pcntl
 
-COPY blogx .
+COPY . ./blogx
 
-WORKDIR ./blogx
+WORKDIR /var/www/blogx
 
 COPY blogx/.env.example .env
 
@@ -45,6 +45,6 @@ RUN composer install
 #CMD ["php-fpm"]
 #ENTRYPOINT ["sh", "./startserver.sh"]
 
-COPY ./supervisor/ /etc/
+COPY supervisor /etc/supervisor
 
 CMD [ "/usr/bin/supervisord", "-c", "/etc/supervisord.conf" ]
