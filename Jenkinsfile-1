@@ -19,16 +19,18 @@ pipeline {
         stage('Build Laravel') {
             steps {
                 dir('blogx') {
-                    if ('master' == BRANCH_NICK)
-                    {
-                        sh 'docker build -f app-prod.Dockerfile . -t laravel-prod-app:latest'
-                        sh 'docker tag laravel-prod-app:latest jkpraja/laravel-prod-app:latest'
-                        sh 'docker push jkpraja/laravel-prod-app:latest'
-                    } else {
-                        sh 'docker build -f app.Dockerfile . -t laravel-app:latest'
-                        sh 'docker tag laravel-app:latest jkpraja/laravel-app:latest'
-                        //sh 'echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS} --password-stdin'
-                        sh 'docker push jkpraja/laravel-app:latest'
+                    script {
+                        if ('master' == BRANCH_NICK)
+                        {
+                            docker build -f app-prod.Dockerfile . -t laravel-prod-app:latest
+                            docker tag laravel-prod-app:latest jkpraja/laravel-prod-app:latest
+                            docker push jkpraja/laravel-prod-app:latest
+                        } else {
+                            docker build -f app.Dockerfile . -t laravel-app:latest
+                            docker tag laravel-app:latest jkpraja/laravel-app:latest
+                            //sh 'echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS} --password-stdin'
+                            docker push jkpraja/laravel-app:latest
+                        }
                     }
                     
                 }
