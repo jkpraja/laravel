@@ -20,9 +20,7 @@ pipeline {
                 dir('blogx') {
                     sh 'docker build -f app.Dockerfile . -t laravel-app:latest'
                     sh 'docker tag laravel-app:latest jkpraja/laravel-app:latest'
-                    sh '''
-                        echo "${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS} --password-stdin"
-                    '''
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS --password-stdin'
                     sh 'docker push jkpraja/laravel-app:latest'
                 }
             }
