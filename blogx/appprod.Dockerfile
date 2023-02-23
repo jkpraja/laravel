@@ -31,7 +31,7 @@ COPY . ./blogx
 
 WORKDIR /var/www/blogx
 
-COPY blogx/.env.example .env
+COPY .env.example .env
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
