@@ -27,9 +27,9 @@ RUN apt clean && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-install pdo_mysql mbstring 
 #zip exif pcntl
 
-COPY ./blogx ./blogx
+COPY blogx blogx
 
-WORKDIR ./blogx
+WORKDIR /var/www/blogx
 
 COPY .env.example .env
 
