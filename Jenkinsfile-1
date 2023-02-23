@@ -21,8 +21,7 @@ pipeline {
                 dir('blogx') {
                     sh 'docker build -f appprod.Dockerfile . -t laravel-prod-app:latest'
                     sh 'docker tag laravel-prod-app:latest jkpraja/laravel-prod-app:latest'
-                    sh 'docker push jkpraja/laravel-prod-app:latest'
-                    
+                    sh 'docker push jkpraja/laravel-prod-app:latest'    
                 }
             }
         }
@@ -33,6 +32,7 @@ pipeline {
             }
             steps {
                 //dir('web-server') {
+                    sh 'pwd'
                     sh 'docker build -f server.Dockerfile . -t web-server:latest'
                     sh 'docker tag web-server:latest jkpraja/web-server:latest'
                     sh 'docker push jkpraja/web-server:latest'
