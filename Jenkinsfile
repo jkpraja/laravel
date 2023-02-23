@@ -3,15 +3,14 @@ pipeline {
         label 'linux'
     }
 
-    when {
-        branch "master"
-    }
-
     environment {
         GIT_COMMIT_SHORT = sh (returnStdout: true, script: '''echo $GIT_COMMIT | head -c 7''')
     }
 
     stages {
+        when {
+            branch "development"
+        }
         stage('Prepare .env') {
             steps {
                 sh 'echo "\nGIT_COMMIT_SHORT=$(echo $GIT_COMMIT_SHORT)" >> .env'
