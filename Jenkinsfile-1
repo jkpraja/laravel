@@ -5,7 +5,7 @@ pipeline {
 
     environment {
         GIT_COMMIT_SHORT = sh (returnStdout: true, script: '''echo $GIT_COMMIT | head -c 7''')
-        BRANCH_NICK = sh {returnStdout: true, script: '''echo $BRANCH_NAME}
+        BRANCH_NICK = sh {returnStdout: true, script: '''echo $BRANCH_NAME'''}
     }
 
     stages {
