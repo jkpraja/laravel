@@ -22,7 +22,7 @@ pipeline {
                     script {
                         if ('master' == BRANCH_NICK)
                         {
-                            docker build -f app-prod.Dockerfile . -t laravel-prod-app:latest
+                            docker build -f appprod.Dockerfile . -t laravel-prod-app:latest
                             docker tag laravel-prod-app:latest jkpraja/laravel-prod-app:latest
                             docker push jkpraja/laravel-prod-app:latest
                         } else {
