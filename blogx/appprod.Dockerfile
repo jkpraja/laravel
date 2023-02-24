@@ -46,5 +46,5 @@ RUN composer install
 #ENTRYPOINT ["sh", "./startserver.sh"]
 
 COPY supervisor /etc/supervisor
-CMD ["php-fpm"]
-#CMD [ "/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf" ]
+#CMD ["php-fpm"]
+CMD [ "/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf" ]
