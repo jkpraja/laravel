@@ -5,8 +5,8 @@ services:
         image: jkpraja/laravel-prod-app:latest
         #extra_hosts:
         #    - 'host.docker.internal:host-gateway'
-        ports:
-            - '8000:8000'
+        #ports:
+        #    - '8000:8000'
         volumes:
             - 'blogx:/var/www/blogx'
         networks:
