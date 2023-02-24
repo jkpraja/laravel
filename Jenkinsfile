@@ -4,24 +4,24 @@ pipeline {
     }
 
     environment {
-        GIT_COMMIT_SHORT = sh (returnStdout: true, script: '''echo $GIT_COMMIT | head -c 7''')
+        BUILD_NUMBER = sh (returnStdout: true, script: '''echo $BUILD_NUMBER | head -c 7''')
         //DOCKERHUB_CREDENTIALS = credentials('jkpraja-dockerhub')
     }
 
     stages {
         stage('Prepare .env') {
             steps {
-                sh 'echo "\nGIT_COMMIT_SHORT=$(echo $GIT_COMMIT_SHORT)" >> .env'
+                sh 'echo "\nBUILD_NUMBER=$(echo $BUILD_NUMBER)" >> .env'
             }
         }
 
         stage('Build Laravel') {
             steps {
                 dir('blogx') {
-                    sh 'docker build -f app.Dockerfile . -t laravel-app:latest'
-                    sh 'docker tag laravel-app:latest jkpraja/laravel-app:latest'
+                    sh 'docker build -f app.Dockerfile . -t laravel-app:$BUILD_NUMBER'
+                    sh 'docker tag laravel-app:$BUILD_NUMBER jkpraja/laravel-app:$BUILD_NUMBER'
                     //sh 'echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS} --password-stdin'
-                    sh 'docker push jkpraja/laravel-app:latest'
+                    sh 'docker push jkpraja/laravel-app:$BUILD_NUMBER'
                 }
             }
         }

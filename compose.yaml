@@ -2,7 +2,7 @@
 services:
     laravel-app:
         container_name: laravel-app
-        image: jkpraja/laravel-app:latest
+        image: jkpraja/laravel-app:${BUILD_NUMBER}
         #extra_hosts:
         #    - 'host.docker.internal:host-gateway'
         ports:
