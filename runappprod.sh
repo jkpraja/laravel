@@ -1,8 +1,8 @@
 #! /bin/sh
 
-if (docker container inspect -f '{{.State.Running}}' mysql-db); then
+if [docker container inspect -f '{{.State.Running}}' mysql-db]; then
     echo "database is already running"
-    if (docker container inspect -f '{{.State.Running}}' web-server); then
+    if [docker container inspect -f '{{.State.Running}}' web-server && [docker container inspect -f '{{.State.Status}}' web-server] != 'Exited']; then
         echo "web server is already running"
     else
         docker compose -f prod-compose.yaml up -d web-server
