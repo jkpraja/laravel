@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Prepare .env') {
             steps {
-                sh 'echo "\nBUILD_NUMBER=$(echo $BUILD_NUMBER)" >> .env'
+                sh 'echo "\nBUILD_NUMBER=$(echo $env.BUILD_NUMBER)" >> .env'
             }
         }
 
