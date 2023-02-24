@@ -37,8 +37,8 @@ services:
         image: jkpraja/laravel-server:latest
         ports:
           - "80:80"
-        volumes:
-          - blogx:/var/www/blogx
+        #volumes:
+        #  - blogx:/var/www/blogx
         #depends_on:
         #    - laravel-app
         networks:
