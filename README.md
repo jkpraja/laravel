@@ -4,6 +4,9 @@
 
 - [@jkpraja](https://www.github.com/jkpraja)
 
+## Topology
+![CI/CD Topology](https://raw.githubusercontent.com/jkpraja/laravel/master/Project%208.png)
+
 
 ## Introduction
 [Blogx](https://github.com/sdcilsy/blogx) is a Laravel based application which is using PHP and MySQL as its main engine. 
