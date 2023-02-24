@@ -21,11 +21,13 @@ pipeline {
                     //sh 'docker build -f app.Dockerfile . -t laravel-app:latest'
                     //sh 'docker tag laravel-app:latest jkpraja/laravel-app:latest'
                     script {
-                        def laravelImage = docker.build("jkpraja/laravel-app:${BUILD_NUMBER}","app.Dockerfile")
+                        docker.withRegistry('', jkpraja-dockerhub) {
+                            def laravelImage = docker.build("jkpraja/laravel-app","app.Dockerfile")
                     //sh 'echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS} --password-stdin'
                     //sh 'docker push jkpraja/laravel-app:latest'
-                        laravel.push()
-                        laravel.push('latest')
+                            laravel.push("$BUILD_NUMBER")
+                            laravel.push('latest')
+                        }
                     }
                 }
             }
