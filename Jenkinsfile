@@ -4,7 +4,7 @@ pipeline {
     }
 
     environment {
-        BUILD_NUMBER = sh (returnStdout: true, script: '''echo $BUILD_NUMBER | head -c 7''')
+        BUILD_NUMBER = sh (returnStdout: true, script: '''echo $BUILD_NUMBER''')
         //DOCKERHUB_CREDENTIALS = credentials('jkpraja-dockerhub')
     }
 
