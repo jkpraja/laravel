@@ -5,8 +5,8 @@ services:
         image: jkpraja/laravel-prod-app:latest
         #extra_hosts:
         #    - 'host.docker.internal:host-gateway'
-        #ports:
-        #    - '8000:8000'
+        ports:
+            - '8000:9000'
         volumes:
             - 'blogx:/var/www/blogx'
         networks:
@@ -36,7 +36,9 @@ services:
         container_name: web-server
         image: jkpraja/laravel-server:latest
         ports:
-            - "80:80"
+          - "80:80"
+        volumes:
+          - blogx:/var/www/blogx
         #depends_on:
         #    - laravel-app
         networks:
