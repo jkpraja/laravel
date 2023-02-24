@@ -1,11 +1,8 @@
 # Apply CI/CD of Laravel Apps using Jenkins, Docker and AWS EC2
 
-
-Testing Development
-
 ## Authors
 
-- [@jkpraja](https://www.github.com/octokatherine)
+- [@jkpraja](https://www.github.com/jkpraja)
 
 
 ## Introduction
