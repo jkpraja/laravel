@@ -26,19 +26,19 @@ pipeline {
             }
         }
 
-        stage('Build Webserver') {
-            when {
-                branch 'master'
-            }
-            steps {
-                dir('blogx') {
-                    sh 'pwd'
-                    sh 'docker build -f server.Dockerfile . -t laravel-server:latest'
-                    sh 'docker tag web-server:latest jkpraja/laravel-server:latest'
-                    sh 'docker push jkpraja/laravel-server:latest'
-                }
-            }
-        }
+        //stage('Build Webserver') {
+        //    when {
+        //        branch 'master'
+        //    }
+        //    steps {
+        //        dir('blogx') {
+        //            sh 'pwd'
+        //            sh 'docker build -f server.Dockerfile . -t laravel-server:latest'
+        //            sh 'docker tag web-server:latest jkpraja/laravel-server:latest'
+        //            sh 'docker push jkpraja/laravel-server:latest'
+        //        }
+        //    }
+        //}
 
         stage('Deploy') {
             steps {
