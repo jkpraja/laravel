@@ -8,7 +8,7 @@ services:
         #ports:
         #    - '9000:9000'
         volumes:
-            - 'blogxsrc:/var/www'
+            - ./:/var/www
         networks:
             - sail
         #depends_on:
@@ -34,11 +34,12 @@ services:
           timeout: 10s
     web-server:
         container_name: web-server
-        image: jkpraja/laravel-server:latest
+        image: nginx:alpine
         ports:
           - "80:80"
         volumes:
-          - blogxsrc:/var/www
+          - ./:/var/www
+          - ./nginx/:/etc/nginx/conf.d/
         #depends_on:
         #    - laravel-app
         networks:
