@@ -27,6 +27,16 @@ RUN apt clean && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-install pdo_mysql mbstring 
 #zip exif pcntl
 
+# Add user for laravel application
+RUN groupadd -g 1000 www
+RUN useradd -u 1000 -ms /bin/bash -g www www
+
+# Copy existing application directory permissions
+COPY --chown=www:www . .
+
+# Change current user to www
+USER www
+
 COPY . .
 
 COPY .env.example .env
@@ -39,16 +49,6 @@ RUN chmod +x ./startserver.sh
 RUN sh ./ubahenv.sh
 
 RUN composer install
-
-# Add user for laravel application
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
-
-# Copy existing application directory permissions
-COPY --chown=www:www . .
-
-# Change current user to www
-USER www
 
 #CMD ["php-fpm"]
 #ENTRYPOINT ["sh", "./startserver.sh"]
