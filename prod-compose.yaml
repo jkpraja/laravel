@@ -8,7 +8,7 @@ services:
         #ports:
         #    - '9000:9000'
         volumes:
-            - 'blogx:/var/www/blogx'
+            - 'blogxsrc:/var/www'
         networks:
             - sail
         #depends_on:
@@ -37,8 +37,8 @@ services:
         image: jkpraja/laravel-server:latest
         ports:
           - "80:80"
-        #volumes:
-        #  - blogx:/var/www/blogx
+        volumes:
+          - blogxsrc:/var/www
         #depends_on:
         #    - laravel-app
         networks:
@@ -47,6 +47,6 @@ networks:
     sail:
     #    driver: bridge
 volumes:
-    blogx:
+    blogxsrc:
     sailmysql:
 #        driver: local

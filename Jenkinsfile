@@ -14,7 +14,7 @@ pipeline {
                 sh 'echo "\nBUILD_NUMBER=$(echo $BUILD_NUMBER)" >> .env'
             }
         }
-
+        
         stage('Build Laravel') {
             steps {
                 dir('blogx') {
