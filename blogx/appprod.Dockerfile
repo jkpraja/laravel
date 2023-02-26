@@ -40,6 +40,8 @@ RUN sh ./ubahenv.sh
 
 RUN composer install
 
+RUN php artisan key:generate --show
+
 # Add user for laravel application
 RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
