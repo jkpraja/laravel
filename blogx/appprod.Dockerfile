@@ -32,11 +32,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 COPY . .
 
 # Add user for laravel application
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
+#RUN groupadd -g 1000 www
+#RUN useradd -u 1000 -ms /bin/bash -g www www
 
 # Copy existing application directory permissions
-COPY --chown=www:www . .
+#COPY --chown=www:www . .
 
 COPY .env.example .env
 
@@ -50,7 +50,7 @@ RUN composer install
 RUN php artisan key:generate --show
 
 # Change current user to www
-USER www
+#USER www
 
 #CMD ["php-fpm"]
 #ENTRYPOINT ["sh", "./startserver.sh"]
