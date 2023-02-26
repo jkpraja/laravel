@@ -27,17 +27,7 @@ RUN apt clean && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-install pdo_mysql mbstring 
 #zip exif pcntl
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Add user for laravel application
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
-
-# Copy existing application directory permissions
-COPY --chown=www:www . .
-
-# Change current user to www
-USER www
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer# Add user for laravel application
 
 COPY . .
 
@@ -49,6 +39,15 @@ RUN chmod +x ./startserver.sh
 RUN sh ./ubahenv.sh
 
 RUN composer install
+
+RUN groupadd -g 1000 www
+RUN useradd -u 1000 -ms /bin/bash -g www www
+
+# Copy existing application directory permissions
+COPY --chown=www:www . .
+
+# Change current user to www
+USER www
 
 #CMD ["php-fpm"]
 #ENTRYPOINT ["sh", "./startserver.sh"]
