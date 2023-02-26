@@ -38,9 +38,6 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 # Copy existing application directory permissions
 COPY --chown=www:www . .
 
-# Change current user to www
-USER www
-
 COPY .env.example .env
 
 RUN chmod +x ./ubahenv.sh
@@ -51,6 +48,9 @@ RUN sh ./ubahenv.sh
 RUN composer install
 
 RUN php artisan key:generate --show
+
+# Change current user to www
+USER www
 
 #CMD ["php-fpm"]
 #ENTRYPOINT ["sh", "./startserver.sh"]
