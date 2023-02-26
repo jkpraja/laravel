@@ -31,8 +31,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 COPY . .
 
-WORKDIR /var/www/blogx
-
 COPY .env.example .env
 
 RUN chmod +x ./ubahenv.sh
