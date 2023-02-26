@@ -27,9 +27,11 @@ RUN apt clean && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-install pdo_mysql mbstring 
 #zip exif pcntl
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer# Add user for laravel application
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY . .
+
+WORKDIR /var/www/blogx
 
 COPY .env.example .env
 
@@ -40,6 +42,7 @@ RUN sh ./ubahenv.sh
 
 RUN composer install
 
+# Add user for laravel application
 RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 
